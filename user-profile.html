@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Property Aster · Contact Profile</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root{--g:#1A6B5A;--gl:#E8F5F1;--gm:#2E8B73;--gd:#134f43}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;background:#F1F4F2;color:#1a1a1a}
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-thumb{background:#D1D5DB;border-radius:4px}
+
+/* SHELL */
+.app{display:flex;height:100vh;overflow:hidden}
+.sidebar{width:216px;min-width:216px;background:#fff;border-right:1px solid #E5E9E6;display:flex;flex-direction:column;overflow-y:auto;flex-shrink:0}
+.main{flex:1;display:flex;flex-direction:column;min-width:0;overflow:hidden}
+.topbar{height:54px;min-height:54px;background:#fff;border-bottom:1px solid #E5E9E6;display:flex;align-items:center;justify-content:space-between;padding:0 18px;gap:12px;flex-shrink:0}
+
+/* PAGES */
+.page{display:none;flex:1;overflow-y:auto;padding:16px;flex-direction:column;gap:14px}
+.page.active{display:flex}
+
+/* SIDEBAR */
+.brand{padding:14px 16px;border-bottom:1px solid #E5E9E6;display:flex;align-items:center;gap:9px;flex-shrink:0}
+.brand-ico{width:30px;height:30px;border-radius:8px;background:var(--g);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nav-grp{padding:10px 8px 2px}
+.nav-lbl{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#9CA3AF;padding:0 8px;margin-bottom:3px}
+.nav-item{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:10px;cursor:pointer;color:#6B7280;font-size:13px;font-weight:400;transition:all .15s;user-select:none}
+.nav-item:hover{background:var(--gl);color:var(--g)}
+.nav-item.active{background:var(--g);color:#fff;font-weight:500}
+.nav-item i{font-size:16px;flex-shrink:0}
+.nav-badge{margin-left:auto;font-size:10px;font-weight:600;padding:1px 6px;border-radius:100px}
+.nb-red{background:#FEE2E2;color:#B91C1C}
+.nb-green{background:var(--gl);color:var(--g)}
+.nb-amber{background:#FEF3C7;color:#92400E}
+.sidebar-footer{padding:10px;margin-top:auto;border-top:1px solid #E5E9E6;flex-shrink:0}
+.upgrade{background:var(--gl);border-radius:10px;padding:12px}
+
+/* TOPBAR */
+.search-box{display:flex;align-items:center;gap:7px;background:#F9FAFB;border:1px solid #E5E9E6;border-radius:8px;padding:6px 11px}
+.search-box input{background:transparent;border:none;outline:none;font-size:12px;color:#374151;width:150px;font-family:inherit}
+.search-box input::placeholder{color:#9CA3AF}
+.icon-btn{width:32px;height:32px;border-radius:8px;background:#F9FAFB;border:1px solid #E5E9E6;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#6B7280;transition:all .15s;flex-shrink:0}
+.icon-btn:hover{background:var(--gl);color:var(--g);border-color:var(--gl)}
+
+/* CARDS */
+.card{background:#fff;border:1px solid #E5E9E6;border-radius:12px;overflow:hidden;flex-shrink:0}
+.card-h{padding:11px 14px;border-bottom:1px solid #F0F2F0;display:flex;align-items:center;justify-content:space-between}
+.card-t{font-size:13px;font-weight:600;color:#111827}
+.card-body{padding:14px}
+
+/* CHIPS */
+.chip{display:inline-flex;align-items:center;font-size:10.5px;font-weight:500;padding:3px 9px;border-radius:100px}
+.cg{background:var(--gl);color:var(--g)}
+.ce{background:#D1FAE5;color:#065F46}
+.ca{background:#FEF3C7;color:#92400E}
+.cr{background:#FEE2E2;color:#991B1B}
+.cgr{background:#F3F4F6;color:#4B5563}
+.cp{background:#EEF2FF;color:#4F46E5}
+
+/* FIELD */
+.field{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #F5F5F5;font-size:12.5px}
+.field:last-child{border-bottom:none}
+.fl{color:#9CA3AF}
+.fv{color:#111827;font-weight:500;text-align:right}
+
+/* PBAR */
+.pbar{height:5px;background:#F0F2F0;border-radius:10px;overflow:hidden}
+.pbar-fill{height:100%;border-radius:10px}
+
+/* TIMELINE */
+.tl-item{display:flex;gap:10px;padding-bottom:12px}
+.tl-item:last-child{padding-bottom:0}
+.tl-left{display:flex;flex-direction:column;align-items:center}
+.tl-dot{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tl-line{width:1px;flex:1;background:#EAEEEB;margin-top:4px}
+
+/* CALENDAR */
+.cal-cell{width:34px;height:34px;display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:12px;color:#374151;cursor:pointer;margin:0 auto;transition:all .15s;position:relative}
+.cal-cell:hover:not(.today-cell):not(.other-month){background:var(--gl);color:var(--g)}
+.cal-cell.today-cell{background:var(--g);color:#fff;font-weight:700}
+.cal-cell.other-month{color:#D1D5DB;cursor:default}
+.cal-cell.has-event::after{content:'';position:absolute;bottom:2px;left:50%;transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--gm)}
+.cal-cell.today-cell.has-event::after{background:#fff}
+.cal-cell.selected:not(.today-cell){background:#F0FDF4;color:var(--g);border:1.5px solid var(--g)}
+.evt-pill{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:9px;cursor:pointer;transition:background .15s}
+.evt-pill:hover{background:#F9FAFB}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:7px 14px;border-radius:8px;font-size:12px;font-weight:500;cursor:pointer;font-family:inherit;border:none;transition:all .15s}
+.btn-g{background:var(--g);color:#fff}
+.btn-g:hover{background:var(--gd)}
+.btn-o{background:#fff;color:#374151;border:1px solid #E5E9E6}
+.btn-o:hover{border-color:var(--g);color:var(--g)}
+.btn-r{background:#FEE2E2;color:#991B1B}
+.btn-r:hover{background:#FECACA}
+.btn-sm{padding:5px 10px;font-size:11px}
+
+/* ACT BTNS */
+.act-btn{display:flex;align-items:center;gap:6px;padding:7px 14px;border-radius:8px;font-size:12px;font-weight:500;cursor:pointer;border:1px solid #E5E9E6;background:#fff;color:#374151;font-family:inherit;transition:all .15s}
+.act-btn:hover{border-color:var(--g);color:var(--g);background:var(--gl)}
+.act-btn.primary{background:var(--g);color:#fff;border-color:var(--g)}
+.act-btn.primary:hover{background:var(--gd)}
+
+/* STATS */
+.stat-box{border-radius:10px;padding:12px;text-align:center}
+.stat-num{font-family:'DM Serif Display',serif;font-size:22px;line-height:1}
+.stat-lbl{font-size:10px;color:#6B7280;margin-top:3px}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:100;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:#fff;border-radius:14px;padding:24px;width:400px;max-width:90vw;box-shadow:0 20px 60px rgba(0,0,0,.15)}
+.modal-title{font-family:'DM Serif Display',serif;font-size:18px;color:#111827;margin-bottom:16px}
+.form-label{font-size:12px;font-weight:600;color:#374151;margin-bottom:4px;display:block}
+.form-input{width:100%;border:1px solid #E5E9E6;border-radius:8px;padding:8px 11px;font-size:13px;font-family:inherit;outline:none;color:#111827}
+.form-input:focus{border-color:var(--g)}
+.form-row{margin-bottom:12px}
+
+/* ATTENDANCE TABLE */
+.att-row{display:grid;grid-template-columns:1fr 90px 90px 90px 90px;gap:0;padding:9px 14px;border-bottom:1px solid #F5F5F5;font-size:12.5px;align-items:center}
+.att-row:last-child{border-bottom:none}
+.att-head{background:#F9FAFB;font-weight:600;font-size:11px;color:#6B7280;text-transform:uppercase;letter-spacing:.04em}
+
+/* CLOCK DISPLAY */
+.clock-num{font-family:'DM Serif Display',serif;font-size:36px;color:#111827;letter-spacing:2px;line-height:1}
+
+/* TASKS CHECKBOX */
+.task-cb{width:16px;height:16px;border-radius:50%;border:2px solid #D1D5DB;cursor:pointer;flex-shrink:0;transition:all .15s;display:flex;align-items:center;justify-content:center}
+.task-cb.done{background:var(--g);border-color:var(--g)}
+.task-cb.done::after{content:'✓';font-size:9px;color:#fff;font-weight:700}
+
+/* SECTION DIVIDER */
+.sec-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#9CA3AF;padding:4px 0 8px}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- ═══════════ SIDEBAR ═══════════ -->
+<aside class="sidebar">
+  <div class="brand">
+    <div class="brand-ico"><i class="ti ti-building-estate" style="font-size:15px;color:#fff"></i></div>
+    <div>
+      <p style="font-family:'DM Serif Display',serif;font-size:14px;color:var(--g);line-height:1.15">Property</p>
+      <p style="font-family:'DM Serif Display',serif;font-size:14px;color:#111827;line-height:1.15">Aster</p>
+    </div>
+  </div>
+
+  <div class="nav-grp">
+    <p class="nav-lbl">Main</p>
+    <div class="nav-item" onclick="goPage('dashboard',this)"><i class="ti ti-layout-dashboard"></i>Dashboard</div>
+    <div class="nav-item" onclick="goPage('inbox',this)"><i class="ti ti-mail"></i>Inbox<span class="nav-badge nb-red">4</span></div>
+    <div class="nav-item" onclick="goPage('calendar',this)"><i class="ti ti-calendar"></i>Calendar</div>
+  </div>
+
+  <div class="nav-grp">
+    <p class="nav-lbl">CRM</p>
+    <div class="nav-item active" onclick="goPage('contacts',this)"><i class="ti ti-users"></i>Contacts<span class="nav-badge nb-green">1</span></div>
+    <div class="nav-item" onclick="goPage('deals',this)"><i class="ti ti-briefcase"></i>Deals</div>
+    <div class="nav-item" onclick="goPage('properties',this)"><i class="ti ti-building"></i>Properties</div>
+    <div class="nav-item" onclick="goPage('analytics',this)"><i class="ti ti-chart-bar"></i>Analytics</div>
+  </div>
+
+  <div class="nav-grp">
+    <p class="nav-lbl">Manage</p>
+    <div class="nav-item" onclick="goPage('tasks',this)"><i class="ti ti-checkbox"></i>Tasks<span class="nav-badge nb-amber">3</span></div>
+    <div class="nav-item" onclick="goPage('documents',this)"><i class="ti ti-files"></i>Documents</div>
+    <div class="nav-item" onclick="goPage('settings',this)"><i class="ti ti-settings"></i>Settings</div>
+  </div>
+
+  <div class="sidebar-footer">
+    <div class="upgrade">
+      <p style="font-family:'DM Serif Display',serif;font-size:14px;color:var(--g);margin-bottom:4px">Level Up</p>
+      <p style="font-size:11px;color:#6B7280;line-height:1.5;margin-bottom:9px">Unlock advanced reporting, bulk exports and team tools.</p>
+      <button class="btn btn-g" style="width:100%" onclick="alert('Upgrade to Aster Pro!')">Get Aster Pro</button>
+    </div>
+  </div>
+</aside>
+
+<!-- ═══════════ MAIN ═══════════ -->
+<div class="main">
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div style="display:flex;align-items:center;gap:10px">
+      <i class="ti ti-menu-2" style="font-size:17px;color:#9CA3AF;cursor:pointer"></i>
+      <div style="display:flex;align-items:center;gap:5px;font-size:12.5px">
+        <span style="color:#9CA3AF" id="bc1">Dashboard</span>
+        <i class="ti ti-chevron-right" style="font-size:10px;color:#CBD5E1"></i>
+        <span style="color:#9CA3AF" id="bc2">Contacts</span>
+        <i class="ti ti-chevron-right" style="font-size:10px;color:#CBD5E1"></i>
+        <span style="color:var(--g);font-weight:600" id="bc3">Simone Reeves</span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px">
+      <div class="search-box"><i class="ti ti-search" style="font-size:13px;color:#9CA3AF"></i><input type="text" placeholder="Search anything..."></div>
+      <div class="icon-btn" style="position:relative"><i class="ti ti-bell" style="font-size:15px"></i><span style="position:absolute;top:6px;right:6px;width:7px;height:7px;border-radius:50%;background:#EF4444;border:1.5px solid #fff"></span></div>
+      <div class="icon-btn"><i class="ti ti-settings" style="font-size:15px"></i></div>
+      <div style="display:flex;align-items:center;gap:7px;cursor:pointer;padding:3px 8px;border-radius:8px" onmouseenter="this.style.background='#F9FAFB'" onmouseleave="this.style.background=''">
+        <div style="width:30px;height:30px;border-radius:50%;background:var(--g);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff">DL</div>
+        <div><p style="font-size:12px;font-weight:600;color:#111827;line-height:1.2">Davis Levin</p><p style="font-size:10.5px;color:#9CA3AF;line-height:1.2">Admin</p></div>
+        <i class="ti ti-chevron-down" style="font-size:11px;color:#9CA3AF"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════════
+       PAGE: CONTACTS (Profile)
+  ══════════════════════════════════ -->
+  <div id="page-contacts" class="page active">
+
+    <!-- ROW 1: Profile | Clock In/Out | Attendance -->
+    <div style="display:grid;grid-template-columns:250px 1fr 230px;gap:12px;align-items:start">
+
+      <!-- PROFILE -->
+      <div class="card">
+        <div class="card-h"><span class="card-t">Profile</span><span class="chip cg">Active</span></div>
+        <div class="card-body" style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:16px 14px">
+          <div style="position:relative">
+            <div style="width:72px;height:72px;border-radius:16px;background:var(--g);display:flex;align-items:center;justify-content:center;font-family:'DM Serif Display',serif;font-size:26px;color:#fff">SR</div>
+            <div style="position:absolute;bottom:-2px;right:-2px;width:20px;height:20px;border-radius:50%;background:#10B981;border:2px solid #fff;display:flex;align-items:center;justify-content:center"><i class="ti ti-check" style="font-size:9px;color:#fff"></i></div>
+          </div>
+          <div style="text-align:center">
+            <p style="font-family:'DM Serif Display',serif;font-size:17px;color:#111827">Simone Reeves</p>
+            <p style="font-size:12px;color:#6B7280;margin-top:1px">Head of Procurement</p>
+            <p style="font-size:12px;color:var(--g);font-weight:500;margin-top:1px">Vertex Systems Ltd.</p>
+          </div>
+          <div style="display:flex;gap:4px;flex-wrap:wrap;justify-content:center">
+            <span class="chip cg">Enterprise</span><span class="chip ca">Hot lead</span>
+          </div>
+          <div style="width:100%;border-top:1px solid #F0F2F0;padding-top:10px;display:flex;flex-direction:column;gap:0">
+            <div class="field"><span class="fl">Email</span><span class="fv" style="color:#2563EB;font-size:11.5px">s.reeves@vertex.io</span></div>
+            <div class="field"><span class="fl">Phone</span><span class="fv" style="font-size:12px">+44 20 7946 0823</span></div>
+            <div class="field"><span class="fl">Location</span><span class="fv" style="font-size:12px">London, UK</span></div>
+            <div class="field"><span class="fl">Since</span><span class="fv" style="font-size:12px">Feb 14, 2022</span></div>
+            <div class="field"><span class="fl">Source</span><span class="fv" style="font-size:12px">LinkedIn</span></div>
+            <div class="field"><span class="fl">Owner</span>
+              <div style="display:flex;align-items:center;gap:5px">
+                <div style="width:18px;height:18px;border-radius:50%;background:var(--g);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;color:#fff">RM</div>
+                <span class="fv" style="font-size:12px">Rohan Mehta</span>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;gap:6px;width:100%">
+            <button class="act-btn primary" style="flex:1;justify-content:center" onclick="openModal('modal-email')"><i class="ti ti-mail" style="font-size:13px"></i>Email</button>
+            <button class="act-btn" style="flex:1;justify-content:center" onclick="openModal('modal-call')"><i class="ti ti-phone" style="font-size:13px"></i>Call</button>
+          </div>
+          <div style="display:flex;gap:8px">
+            <div class="icon-btn" title="LinkedIn"><i class="ti ti-brand-linkedin" style="font-size:14px"></i></div>
+            <div class="icon-btn" title="Twitter"><i class="ti ti-brand-twitter" style="font-size:14px"></i></div>
+            <div class="icon-btn" title="WhatsApp"><i class="ti ti-brand-whatsapp" style="font-size:14px"></i></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CLOCK IN/OUT -->
+      <div class="card">
+        <div class="card-h"><span class="card-t">Clock In / Out</span><span style="font-size:11px;color:#9CA3AF" id="live-date">—</span></div>
+        <div class="card-body">
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;border:1px solid #F0F2F0;border-radius:10px;overflow:hidden;margin-bottom:16px">
+            <div style="text-align:center;padding:12px 8px;border-right:1px solid #F0F2F0">
+              <p style="font-size:10px;color:#9CA3AF;margin-bottom:5px">Clock In</p>
+              <p style="font-size:16px;font-weight:700;color:#111827" id="clock-in-time">09:02 am</p>
+              <span class="chip ce" style="font-size:9px;margin-top:4px">On time</span>
+            </div>
+            <div style="text-align:center;padding:12px 8px;border-right:1px solid #F0F2F0">
+              <p style="font-size:10px;color:#9CA3AF;margin-bottom:5px">Lunch Break</p>
+              <p style="font-size:12.5px;color:#6B7280;font-weight:500">12:00 – 1:00 pm</p>
+              <p style="font-size:10px;color:#9CA3AF;margin-top:4px">60 min</p>
+            </div>
+            <div style="text-align:center;padding:12px 8px">
+              <p style="font-size:10px;color:#9CA3AF;margin-bottom:5px">Clock Out</p>
+              <p style="font-size:16px;font-weight:700;color:#9CA3AF" id="clock-out-time">—</p>
+              <span class="chip cgr" style="font-size:9px;margin-top:4px" id="clock-out-status">Pending</span>
+            </div>
+          </div>
+          <div style="text-align:center;margin-bottom:20px">
+            <p style="font-size:10px;color:#9CA3AF;margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em">Current Time</p>
+            <p class="clock-num" id="live-clock">00:00:00</p>
+            <p style="font-size:11px;color:#9CA3AF;margin-top:6px">Duration on duty: <span style="color:#111827;font-weight:600" id="duty-hours">0h 00m</span></p>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px">
+            <div style="background:var(--gl);border-radius:8px;padding:10px;text-align:center">
+              <p style="font-size:18px;font-weight:700;color:var(--g)">8h</p>
+              <p style="font-size:10px;color:#6B7280;margin-top:2px">Expected</p>
+            </div>
+            <div style="background:#F0FDF4;border-radius:8px;padding:10px;text-align:center">
+              <p style="font-size:18px;font-weight:700;color:#065F46" id="worked-h">—</p>
+              <p style="font-size:10px;color:#6B7280;margin-top:2px">Worked</p>
+            </div>
+            <div style="background:#FEF3C7;border-radius:8px;padding:10px;text-align:center">
+              <p style="font-size:18px;font-weight:700;color:#92400E">0h</p>
+              <p style="font-size:10px;color:#6B7280;margin-top:2px">Overtime</p>
+            </div>
+          </div>
+          <div style="display:flex;gap:8px">
+            <button class="btn btn-g" style="flex:1" id="clock-out-btn" onclick="doClockOut()"><i class="ti ti-logout" style="font-size:14px"></i>Clock Out</button>
+            <button class="btn btn-o" id="break-btn" onclick="doBreak()"><i class="ti ti-coffee" style="font-size:14px"></i>Start Break</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ATTENDANCE -->
+      <div class="card">
+        <div class="card-h"><span class="card-t">Attendance</span><span style="font-size:11px;color:#9CA3AF">May 2026</span></div>
+        <div class="card-body" style="padding:12px 14px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px">
+            <div class="stat-box" style="background:var(--gl)"><p class="stat-num" style="color:var(--g)">13</p><p class="stat-lbl">Present</p></div>
+            <div class="stat-box" style="background:#FEF3C7"><p class="stat-num" style="color:#92400E">5</p><p class="stat-lbl">Late</p></div>
+            <div class="stat-box" style="background:#D1FAE5"><p class="stat-num" style="color:#065F46">2</p><p class="stat-lbl">On Leave</p></div>
+            <div class="stat-box" style="background:#FEE2E2"><p class="stat-num" style="color:#991B1B">1</p><p class="stat-lbl">Absent</p></div>
+          </div>
+          <div style="background:#F9FAFB;border-radius:8px;padding:10px;display:flex;flex-direction:column;gap:7px">
+            <div style="display:flex;align-items:center;gap:6px">
+              <span style="width:8px;height:8px;border-radius:50%;background:var(--g);flex-shrink:0"></span>
+              <span style="font-size:11.5px;color:#374151;flex:1">Present</span>
+              <div class="pbar" style="width:70px"><div class="pbar-fill" style="width:62%;background:var(--g)"></div></div>
+              <span style="font-size:11px;color:#6B7280;width:24px;text-align:right">62%</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px">
+              <span style="width:8px;height:8px;border-radius:50%;background:#F59E0B;flex-shrink:0"></span>
+              <span style="font-size:11.5px;color:#374151;flex:1">Late</span>
+              <div class="pbar" style="width:70px"><div class="pbar-fill" style="width:24%;background:#F59E0B"></div></div>
+              <span style="font-size:11px;color:#6B7280;width:24px;text-align:right">24%</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px">
+              <span style="width:8px;height:8px;border-radius:50%;background:#10B981;flex-shrink:0"></span>
+              <span style="font-size:11.5px;color:#374151;flex:1">On Leave</span>
+              <div class="pbar" style="width:70px"><div class="pbar-fill" style="width:10%;background:#10B981"></div></div>
+              <span style="font-size:11px;color:#6B7280;width:24px;text-align:right">10%</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:6px">
+              <span style="width:8px;height:8px;border-radius:50%;background:#EF4444;flex-shrink:0"></span>
+              <span style="font-size:11.5px;color:#374151;flex:1">Absent</span>
+              <div class="pbar" style="width:70px"><div class="pbar-fill" style="width:5%;background:#EF4444"></div></div>
+              <span style="font-size:11px;color:#6B7280;width:24px;text-align:right">5%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 2: Meetings | Tasks | Assets -->
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;align-items:start">
+
+      <!-- MEETINGS -->
+      <div class="card">
+        <div class="card-h">
+          <span class="card-t">Meetings</span>
+          <div style="display:flex;align-items:center;gap:6px">
+            <span class="chip cg" style="font-size:10px">2 today</span>
+            <button class="btn btn-o btn-sm" onclick="openModal('modal-meeting')"><i class="ti ti-plus" style="font-size:12px"></i> Schedule</button>
+          </div>
+        </div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:8px">
+          <div style="border-left:3px solid var(--g);border-radius:0 8px 8px 0;background:var(--gl);padding:10px 12px">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:3px">
+              <p style="font-size:12.5px;font-weight:600;color:var(--g)">Renewal review call</p>
+              <span class="chip cg" style="font-size:10px">Today</span>
+            </div>
+            <p style="font-size:11px;color:var(--gm)">10:00 AM BST · Zoom</p>
+            <div style="display:flex;gap:6px;margin-top:8px">
+              <button class="btn btn-g btn-sm" onclick="alert('Opening Zoom...')"><i class="ti ti-video" style="font-size:12px"></i>Join</button>
+              <button class="btn btn-o btn-sm" onclick="alert('Opening prep notes...')">Prep notes</button>
+            </div>
+          </div>
+          <div style="border-left:3px solid #F59E0B;border-radius:0 8px 8px 0;background:#FFFBEB;padding:10px 12px">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:3px">
+              <p style="font-size:12.5px;font-weight:600;color:#92400E">Q3 Strategy sync</p>
+              <span class="chip ca" style="font-size:10px">May 28</span>
+            </div>
+            <p style="font-size:11px;color:#B45309">2:00 PM BST · In-person</p>
+          </div>
+          <div style="border-left:3px solid #E5E9E6;border-radius:0 8px 8px 0;background:#F9FAFB;padding:10px 12px">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:3px">
+              <p style="font-size:12.5px;font-weight:500;color:#374151">Contract sign-off</p>
+              <span class="chip cgr" style="font-size:10px">Jun 1</span>
+            </div>
+            <p style="font-size:11px;color:#9CA3AF">11:00 AM BST · Zoom</p>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;border-top:1px solid #F0F2F0;padding-top:10px;margin-top:2px">
+            <div style="text-align:center"><p style="font-size:17px;font-weight:700;color:#111827">8</p><p style="font-size:10px;color:#9CA3AF">This month</p></div>
+            <div style="text-align:center;border-left:1px solid #F0F2F0;border-right:1px solid #F0F2F0"><p style="font-size:17px;font-weight:700;color:var(--g)">6</p><p style="font-size:10px;color:#9CA3AF">Done</p></div>
+            <div style="text-align:center"><p style="font-size:17px;font-weight:700;color:#F59E0B">2</p><p style="font-size:10px;color:#9CA3AF">Upcoming</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TASKS -->
+      <div class="card">
+        <div class="card-h">
+          <span class="card-t">Tasks</span>
+          <div style="display:flex;align-items:center;gap:6px">
+            <span class="chip ca" style="font-size:10px" id="tasks-open-badge">3 open</span>
+            <button class="btn btn-o btn-sm" onclick="openModal('modal-task')"><i class="ti ti-plus" style="font-size:12px"></i> Add</button>
+          </div>
+        </div>
+        <div class="card-body" style="padding:10px 14px">
+          <div id="task-list" style="display:flex;flex-direction:column;gap:0"></div>
+          <div style="margin-top:12px;padding-top:12px;border-top:1px solid #F0F2F0">
+            <div style="display:flex;justify-content:space-between;margin-bottom:5px">
+              <span style="font-size:11px;color:#9CA3AF">Completion this month</span>
+              <span style="font-size:11px;font-weight:600;color:var(--g)" id="task-pct">72%</span>
+            </div>
+            <div class="pbar"><div class="pbar-fill" style="background:var(--g)" id="task-bar-fill"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ASSETS -->
+      <div class="card">
+        <div class="card-h">
+          <span class="card-t">Assets</span>
+          <button class="btn btn-o btn-sm" onclick="openModal('modal-asset')"><i class="ti ti-plus" style="font-size:12px"></i> Assign</button>
+        </div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:8px" id="asset-list">
+          <div style="display:flex;align-items:center;gap:10px;padding:9px 10px;background:#F9FAFB;border-radius:8px;border:1px solid #F0F2F0">
+            <div style="width:32px;height:32px;border-radius:8px;background:var(--gl);display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="ti ti-device-laptop" style="font-size:16px;color:var(--g)"></i></div>
+            <div style="flex:1"><p style="font-size:12.5px;font-weight:500;color:#111827">MacBook Pro 14"</p><p style="font-size:10.5px;color:#9CA3AF">MBP-4821 · Feb 2022</p></div>
+            <span class="chip ce" style="font-size:10px">Active</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:9px 10px;background:#F9FAFB;border-radius:8px;border:1px solid #F0F2F0">
+            <div style="width:32px;height:32px;border-radius:8px;background:#EEF2FF;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="ti ti-device-mobile" style="font-size:16px;color:#4F46E5"></i></div>
+            <div style="flex:1"><p style="font-size:12.5px;font-weight:500;color:#111827">iPhone 15 Pro</p><p style="font-size:10.5px;color:#9CA3AF">IPH-2291 · Mar 2024</p></div>
+            <span class="chip ce" style="font-size:10px">Active</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:9px 10px;background:#F9FAFB;border-radius:8px;border:1px solid #F0F2F0">
+            <div style="width:32px;height:32px;border-radius:8px;background:#FEF3C7;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="ti ti-headphones" style="font-size:16px;color:#92400E"></i></div>
+            <div style="flex:1"><p style="font-size:12.5px;font-weight:500;color:#111827">Sony WH-1000XM5</p><p style="font-size:10.5px;color:#9CA3AF">SNY-0012 · Jan 2023</p></div>
+            <span class="chip ca" style="font-size:10px">Repair</span>
+          </div>
+          <div style="padding-top:8px;border-top:1px solid #F0F2F0;display:flex;justify-content:space-between">
+            <span style="font-size:11.5px;color:#6B7280">Total assigned</span>
+            <span style="font-size:13px;font-weight:600;color:#111827" id="asset-count">3 assets</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROW 3: Earnings | Expenditure -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start">
+
+      <!-- EARNINGS -->
+      <div class="card">
+        <div class="card-h">
+          <span class="card-t">Earnings</span>
+          <select style="font-size:11px;border:1px solid #E5E9E6;border-radius:6px;padding:4px 8px;outline:none;color:#374151;cursor:pointer;font-family:inherit">
+            <option>May 2026</option><option>Apr 2026</option><option>Mar 2026</option>
+          </select>
+        </div>
+        <div class="card-body">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
+            <div class="stat-box" style="background:var(--gl)"><p class="stat-num" style="color:var(--g)">£4,200</p><p class="stat-lbl">Base Salary</p></div>
+            <div class="stat-box" style="background:#F0FDF4"><p class="stat-num" style="color:#065F46">£620</p><p class="stat-lbl">Bonus <span style="color:#10B981;font-size:9px">+14.8%↑</span></p></div>
+          </div>
+          <p class="sec-lbl">Allowances breakdown</p>
+          <div class="field"><span class="fl">Transportation</span><span class="fv">£120</span></div>
+          <div class="field"><span class="fl">Meal</span><span class="fv">£110</span></div>
+          <div class="field"><span class="fl">Internet (Hybrid)</span><span class="fv">£70</span></div>
+          <div class="field"><span class="fl">Health Insurance</span><span class="fv">£120</span></div>
+          <div class="field"><span class="fl">Life Insurance</span><span class="fv">£40</span></div>
+          <div class="field"><span class="fl">Company Device</span><span class="fv">£65</span></div>
+          <div class="field"><span class="fl">Training Program</span><span class="fv">£80</span></div>
+          <div style="background:#F9FAFB;border-radius:8px;padding:10px 12px;margin-top:10px;display:flex;justify-content:space-between;align-items:center;border:1px solid #E5E9E6">
+            <span style="font-size:13px;font-weight:600;color:#111827">Total Monthly</span>
+            <span style="font-family:'DM Serif Display',serif;font-size:22px;color:var(--g)">£5,325</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- EXPENDITURE -->
+      <div class="card">
+        <div class="card-h">
+          <span class="card-t">Expenditure</span>
+          <div style="display:flex;align-items:center;gap:6px">
+            <span class="chip ca" style="font-size:10px">May 2026</span>
+            <button class="btn btn-o btn-sm" onclick="openModal('modal-expense')"><i class="ti ti-plus" style="font-size:12px"></i> Add</button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
+            <div class="stat-box" style="background:#FEF2F2"><p class="stat-num" style="color:#B91C1C">£1,840</p><p class="stat-lbl">Total Spent <span style="color:#EF4444;font-size:9px">+8.2%↑</span></p></div>
+            <div class="stat-box" style="background:#F0FDF4"><p class="stat-num" style="color:#065F46">£660</p><p class="stat-lbl">Budget Left</p></div>
+          </div>
+          <div style="margin-bottom:14px">
+            <div style="display:flex;justify-content:space-between;margin-bottom:5px"><span style="font-size:11px;color:#9CA3AF">Budget used (£2,500 total)</span><span style="font-size:12px;font-weight:600;color:#F59E0B">74%</span></div>
+            <div class="pbar" style="height:7px"><div class="pbar-fill" style="width:74%;background:#F59E0B"></div></div>
+          </div>
+          <p class="sec-lbl">Expense breakdown</p>
+          <div class="field"><span class="fl">Travel & Transport</span><span class="fv">£580</span></div>
+          <div class="field"><span class="fl">Client Entertainment</span><span class="fv">£420</span></div>
+          <div class="field"><span class="fl">Office Supplies</span><span class="fv">£210</span></div>
+          <div class="field"><span class="fl">Software / Tools</span><span class="fv">£380</span></div>
+          <div class="field"><span class="fl">Miscellaneous</span><span class="fv">£250</span></div>
+          <div style="margin-top:14px">
+            <div style="height:90px;position:relative"><canvas id="exp-chart"></canvas></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end page-contacts -->
+
+  <!-- ══════════════════════════════════
+       PAGE: CALENDAR
+  ══════════════════════════════════ -->
+  <div id="page-calendar" class="page">
+    <div style="display:grid;grid-template-columns:1fr 300px;gap:14px;align-items:start;height:100%">
+
+      <!-- BIG CALENDAR -->
+      <div class="card" style="overflow:hidden">
+        <div class="card-h">
+          <div style="display:flex;align-items:center;gap:12px">
+            <button class="btn btn-o btn-sm" id="cal-prev" onclick="calNav(-1)"><i class="ti ti-chevron-left" style="font-size:13px"></i></button>
+            <p style="font-family:'DM Serif Display',serif;font-size:18px;color:#111827;min-width:160px;text-align:center" id="cal-month-title">May 2026</p>
+            <button class="btn btn-o btn-sm" id="cal-next" onclick="calNav(1)"><i class="ti ti-chevron-right" style="font-size:13px"></i></button>
+          </div>
+          <div style="display:flex;gap:6px">
+            <button class="btn btn-o btn-sm" onclick="calGoToday()">Today</button>
+            <button class="btn btn-g btn-sm" onclick="openModal('modal-meeting')"><i class="ti ti-plus" style="font-size:12px"></i> New event</button>
+          </div>
+        </div>
+        <div class="card-body" style="padding:14px">
+          <!-- Day headers -->
+          <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:6px">
+            <div style="text-align:center;font-size:11px;font-weight:600;color:#6B7280;padding:6px 0">Sun</div>
+            <div style="text-align:center;font-size:11px;font-weight:600;color:#6B7280;padding:6px 0">Mon</div>
+            <div style="text-align:center;font-size:11px;font-weight:600;color:#6B7280;padding:6px 0">Tue</div>
+            <div style="text-align:center;font-size:11px;font-weight:600;color:#6B7280;padding:6px 0">Wed</div>
+            <div style="text-align:center;font-size:11px;font-weight:600;color:#6B7280;padding:6px 0">Thu</div>
+            <div style="text-align:center;font-size:11px;font-weight:600;color:#6B7280;padding:6px 0">Fri</div>
+            <div style="text-align:center;font-size:11px;font-weight:600;color:#6B7280;padding:6px 0">Sat</div>
+          </div>
+          <div id="cal-grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px"></div>
+        </div>
+      </div>
+
+      <!-- SIDEBAR: selected day events + upcoming -->
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div class="card">
+          <div class="card-h">
+            <span class="card-t" id="cal-selected-label">Today's events</span>
+            <button class="btn btn-g btn-sm" onclick="openModal('modal-meeting')"><i class="ti ti-plus" style="font-size:12px"></i></button>
+          </div>
+          <div id="cal-day-events" class="card-body" style="min-height:80px;display:flex;flex-direction:column;gap:6px"></div>
+        </div>
+        <div class="card">
+          <div class="card-h"><span class="card-t">Upcoming events</span></div>
+          <div id="cal-upcoming" class="card-body" style="display:flex;flex-direction:column;gap:8px"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       PAGE: TASKS (full)
+  ══════════════════════════════════ -->
+  <div id="page-tasks" class="page">
+    <div style="display:grid;grid-template-columns:1fr 280px;gap:12px;align-items:start">
+      <div class="card">
+        <div class="card-h">
+          <span class="card-t">All Tasks</span>
+          <button class="btn btn-g btn-sm" onclick="openModal('modal-task')"><i class="ti ti-plus" style="font-size:12px"></i> New task</button>
+        </div>
+        <div style="padding:0">
+          <div class="att-row att-head"><span>Task</span><span>Assignee</span><span>Due date</span><span>Priority</span><span>Status</span></div>
+          <div id="full-task-list"></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-h"><span class="card-t">Summary</span></div>
+        <div class="card-body" style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            <div class="stat-box" style="background:var(--gl)"><p class="stat-num" style="color:var(--g)" id="tasks-open-count">3</p><p class="stat-lbl">Open</p></div>
+            <div class="stat-box" style="background:#D1FAE5"><p class="stat-num" style="color:#065F46" id="tasks-done-count">5</p><p class="stat-lbl">Done</p></div>
+          </div>
+          <div style="height:120px;position:relative"><canvas id="tasks-chart"></canvas></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       PAGE: DASHBOARD
+  ══════════════════════════════════ -->
+  <div id="page-dashboard" class="page">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+      <div class="card stat-box" style="padding:20px"><p class="stat-num" style="color:var(--g)">47</p><p class="stat-lbl">Total contacts</p></div>
+      <div class="card stat-box" style="padding:20px"><p class="stat-num" style="color:#065F46">£840k</p><p class="stat-lbl">Pipeline value</p></div>
+      <div class="card stat-box" style="padding:20px"><p class="stat-num" style="color:#F59E0B">12</p><p class="stat-lbl">Active deals</p></div>
+      <div class="card stat-box" style="padding:20px"><p class="stat-num" style="color:#4F46E5">87%</p><p class="stat-lbl">Win rate</p></div>
+    </div>
+    <div class="card">
+      <div class="card-h"><span class="card-t">Revenue overview</span></div>
+      <div class="card-body"><div style="height:200px;position:relative"><canvas id="dash-chart"></canvas></div></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       PAGE: INBOX
+  ══════════════════════════════════ -->
+  <div id="page-inbox" class="page">
+    <div class="card">
+      <div class="card-h"><span class="card-t">Inbox</span><span class="chip cr">4 unread</span></div>
+      <div>
+        <div class="att-row att-head"><span>From</span><span>Subject</span><span>Date</span><span>Status</span><span></span></div>
+        <div class="att-row" style="background:#FFFBEB"><span style="font-weight:600;color:#111827">Rohan Mehta</span><span style="color:#374151">Re: Q3 Renewal Proposal</span><span style="color:#9CA3AF">Today 9:41 AM</span><span><span class="chip ca" style="font-size:10px">Unread</span></span><span><button class="btn btn-o btn-sm" onclick="alert('Opening...')">Open</button></span></div>
+        <div class="att-row" style="background:#FFFBEB"><span style="font-weight:600;color:#111827">Priya Nair</span><span style="color:#374151">Discovery call summary</span><span style="color:#9CA3AF">May 24 4:12 PM</span><span><span class="chip ca" style="font-size:10px">Unread</span></span><span><button class="btn btn-o btn-sm" onclick="alert('Opening...')">Open</button></span></div>
+        <div class="att-row"><span style="color:#6B7280">Lena Müller</span><span style="color:#374151">NDA — signed copy</span><span style="color:#9CA3AF">May 22 11:30 AM</span><span><span class="chip ce" style="font-size:10px">Read</span></span><span><button class="btn btn-o btn-sm" onclick="alert('Opening...')">Open</button></span></div>
+        <div class="att-row"><span style="color:#6B7280">Amir Shah</span><span style="color:#374151">Budget sign-off FY26</span><span style="color:#9CA3AF">May 20 2:00 PM</span><span><span class="chip ce" style="font-size:10px">Read</span></span><span><button class="btn btn-o btn-sm" onclick="alert('Opening...')">Open</button></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════
+       PAGE: DEALS
+  ══════════════════════════════════ -->
+  <div id="page-deals" class="page">
+    <div class="card">
+      <div class="card-h"><span class="card-t">Deals pipeline</span><button class="btn btn-g btn-sm" onclick="openModal('modal-deal')"><i class="ti ti-plus" style="font-size:12px"></i> New deal</button></div>
+      <div>
+        <div class="att-row att-head"><span>Deal name</span><span>Value</span><span>Stage</span><span>Close date</span><span>Probability</span></div>
+        <div class="att-row"><span style="font-weight:500;color:#111827">Annual renewal FY26</span><span>£48,000</span><span><span class="chip cg">Proposal</span></span><span style="color:#9CA3AF">Jun 15</span><span style="font-weight:600;color:var(--g)">70%</span></div>
+        <div class="att-row"><span style="font-weight:500;color:#111827">Platform upgrade</span><span>£22,000</span><span><span class="chip ce">Discovery</span></span><span style="color:#9CA3AF">Jul 30</span><span style="font-weight:600;color:#F59E0B">40%</span></div>
+        <div class="att-row"><span style="font-weight:500;color:#111827">Add-on licenses ×8</span><span>£14,000</span><span><span class="chip ca">Closing</span></span><span style="color:#9CA3AF">May 31</span><span style="font-weight:600;color:var(--g)">88%</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════ PROPERTIES ══════ -->
+  <div id="page-properties" class="page">
+    <div class="card"><div class="card-h"><span class="card-t">Properties</span><button class="btn btn-g btn-sm"><i class="ti ti-plus" style="font-size:12px"></i> Add property</button></div>
+    <div class="card-body" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+      <div style="border:1px solid #E5E9E6;border-radius:10px;padding:14px"><div style="width:100%;height:80px;background:var(--gl);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:10px"><i class="ti ti-building" style="font-size:32px;color:var(--g)"></i></div><p style="font-size:13px;font-weight:600;color:#111827">14 Brook Lane</p><p style="font-size:11px;color:#9CA3AF;margin-top:2px">London, UK · £1.2M</p><span class="chip ce" style="font-size:10px;margin-top:8px;display:inline-flex">Available</span></div>
+      <div style="border:1px solid #E5E9E6;border-radius:10px;padding:14px"><div style="width:100%;height:80px;background:#EEF2FF;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:10px"><i class="ti ti-home" style="font-size:32px;color:#4F46E5"></i></div><p style="font-size:13px;font-weight:600;color:#111827">22 Maple Court</p><p style="font-size:11px;color:#9CA3AF;margin-top:2px">Manchester, UK · £680k</p><span class="chip ca" style="font-size:10px;margin-top:8px;display:inline-flex">Under offer</span></div>
+      <div style="border:1px solid #E5E9E6;border-radius:10px;padding:14px"><div style="width:100%;height:80px;background:#FEF3C7;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:10px"><i class="ti ti-building-skyscraper" style="font-size:32px;color:#92400E"></i></div><p style="font-size:13px;font-weight:600;color:#111827">7 Victoria Quay</p><p style="font-size:11px;color:#9CA3AF;margin-top:2px">Edinburgh, UK · £920k</p><span class="chip cg" style="font-size:10px;margin-top:8px;display:inline-flex">Sold</span></div>
+    </div></div>
+  </div>
+
+  <!-- ══════ ANALYTICS ══════ -->
+  <div id="page-analytics" class="page">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+      <div class="card stat-box" style="padding:20px"><p class="stat-num" style="color:var(--g)">£312k</p><p class="stat-lbl">Total earnings</p></div>
+      <div class="card stat-box" style="padding:20px"><p class="stat-num" style="color:#B91C1C">£1,840</p><p class="stat-lbl">Total expenditure</p></div>
+      <div class="card stat-box" style="padding:20px"><p class="stat-num" style="color:#065F46">82</p><p class="stat-lbl">NPS score</p></div>
+    </div>
+    <div class="card"><div class="card-h"><span class="card-t">Earnings vs Expenditure</span></div><div class="card-body"><div style="height:200px;position:relative"><canvas id="analytics-chart"></canvas></div></div></div>
+  </div>
+
+  <!-- ══════ DOCUMENTS ══════ -->
+  <div id="page-documents" class="page">
+    <div class="card">
+      <div class="card-h"><span class="card-t">Documents</span><button class="btn btn-g btn-sm" onclick="openModal('modal-upload')"><i class="ti ti-upload" style="font-size:12px"></i> Upload</button></div>
+      <div>
+        <div class="att-row att-head"><span>Name</span><span>Type</span><span>Size</span><span>Date</span><span></span></div>
+        <div class="att-row"><span style="display:flex;align-items:center;gap:8px"><i class="ti ti-file-type-pdf" style="color:var(--g);font-size:16px"></i>Proposal_Q3_FY26.pdf</span><span style="color:#9CA3AF">PDF</span><span style="color:#9CA3AF">1.24 MB</span><span style="color:#9CA3AF">May 21</span><span><button class="btn btn-o btn-sm" onclick="alert('Downloading...')"><i class="ti ti-download" style="font-size:12px"></i></button></span></div>
+        <div class="att-row"><span style="display:flex;align-items:center;gap:8px"><i class="ti ti-file-type-pdf" style="color:#92400E;font-size:16px"></i>Contract_Agreement.pdf</span><span style="color:#9CA3AF">PDF</span><span style="color:#9CA3AF">895 KB</span><span style="color:#9CA3AF">Apr 30</span><span><button class="btn btn-o btn-sm" onclick="alert('Downloading...')"><i class="ti ti-download" style="font-size:12px"></i></button></span></div>
+        <div class="att-row"><span style="display:flex;align-items:center;gap:8px"><i class="ti ti-file-type-pdf" style="color:#065F46;font-size:16px"></i>NDA_Vertex_2024.pdf</span><span style="color:#9CA3AF">PDF</span><span style="color:#9CA3AF">1.27 MB</span><span style="color:#9CA3AF">Jan 8, 2024</span><span><button class="btn btn-o btn-sm" onclick="alert('Downloading...')"><i class="ti ti-download" style="font-size:12px"></i></button></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════ SETTINGS ══════ -->
+  <div id="page-settings" class="page">
+    <div class="card"><div class="card-h"><span class="card-t">General settings</span></div>
+    <div class="card-body" style="display:flex;flex-direction:column;gap:14px">
+      <div class="field"><span class="fl">Company name</span><input class="form-input" style="width:220px" value="Property Aster"></div>
+      <div class="field"><span class="fl">Admin email</span><input class="form-input" style="width:220px" value="admin@propertyaster.com"></div>
+      <div class="field"><span class="fl">Timezone</span><select class="form-input" style="width:220px"><option>GMT+1 London</option><option>GMT+0 UTC</option></select></div>
+      <div class="field"><span class="fl">Theme</span><select class="form-input" style="width:220px"><option>Light</option><option>Dark (coming soon)</option></select></div>
+      <div style="padding-top:8px"><button class="btn btn-g" onclick="alert('Settings saved!')"><i class="ti ti-check" style="font-size:14px"></i> Save changes</button></div>
+    </div></div>
+  </div>
+
+</div><!-- end main -->
+</div><!-- end app -->
+
+<!-- ══════════════════════════════════
+     MODALS
+══════════════════════════════════ -->
+<!-- Meeting modal -->
+<div class="modal-overlay" id="modal-meeting">
+  <div class="modal">
+    <p class="modal-title">Schedule meeting</p>
+    <div class="form-row"><label class="form-label">Title</label><input class="form-input" id="m-title" placeholder="Meeting title"></div>
+    <div class="form-row"><label class="form-label">Date</label><input class="form-input" id="m-date" type="date"></div>
+    <div class="form-row"><label class="form-label">Time</label><input class="form-input" id="m-time" type="time"></div>
+    <div class="form-row"><label class="form-label">Type</label><select class="form-input" id="m-type"><option>Zoom</option><option>In-person</option><option>Phone</option></select></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:4px">
+      <button class="btn btn-o" onclick="closeModal('modal-meeting')">Cancel</button>
+      <button class="btn btn-g" onclick="saveMeeting()">Schedule</button>
+    </div>
+  </div>
+</div>
+
+<!-- Task modal -->
+<div class="modal-overlay" id="modal-task">
+  <div class="modal">
+    <p class="modal-title">Add task</p>
+    <div class="form-row"><label class="form-label">Task name</label><input class="form-input" id="t-name" placeholder="Describe the task"></div>
+    <div class="form-row"><label class="form-label">Due date</label><input class="form-input" id="t-due" type="date"></div>
+    <div class="form-row"><label class="form-label">Assignee</label><input class="form-input" id="t-assignee" placeholder="Name"></div>
+    <div class="form-row"><label class="form-label">Priority</label><select class="form-input" id="t-priority"><option>High</option><option>Medium</option><option>Low</option></select></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:4px">
+      <button class="btn btn-o" onclick="closeModal('modal-task')">Cancel</button>
+      <button class="btn btn-g" onclick="saveTask()">Add task</button>
+    </div>
+  </div>
+</div>
+
+<!-- Asset modal -->
+<div class="modal-overlay" id="modal-asset">
+  <div class="modal">
+    <p class="modal-title">Assign asset</p>
+    <div class="form-row"><label class="form-label">Asset name</label><input class="form-input" id="a-name" placeholder="e.g. Dell Monitor"></div>
+    <div class="form-row"><label class="form-label">Asset ID</label><input class="form-input" id="a-id" placeholder="e.g. DLL-0044"></div>
+    <div class="form-row"><label class="form-label">Category</label><select class="form-input" id="a-cat"><option>Laptop</option><option>Phone</option><option>Headphones</option><option>Monitor</option><option>Other</option></select></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:4px">
+      <button class="btn btn-o" onclick="closeModal('modal-asset')">Cancel</button>
+      <button class="btn btn-g" onclick="saveAsset()">Assign</button>
+    </div>
+  </div>
+</div>
+
+<!-- Expense modal -->
+<div class="modal-overlay" id="modal-expense">
+  <div class="modal">
+    <p class="modal-title">Add expense</p>
+    <div class="form-row"><label class="form-label">Description</label><input class="form-input" id="e-desc" placeholder="e.g. Client lunch"></div>
+    <div class="form-row"><label class="form-label">Amount (£)</label><input class="form-input" id="e-amount" type="number" placeholder="0.00"></div>
+    <div class="form-row"><label class="form-label">Category</label><select class="form-input" id="e-cat"><option>Travel</option><option>Entertainment</option><option>Supplies</option><option>Software</option><option>Other</option></select></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:4px">
+      <button class="btn btn-o" onclick="closeModal('modal-expense')">Cancel</button>
+      <button class="btn btn-g" onclick="alert('Expense saved!');closeModal(\'modal-expense\')">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Email modal -->
+<div class="modal-overlay" id="modal-email">
+  <div class="modal">
+    <p class="modal-title">Send email</p>
+    <div class="form-row"><label class="form-label">To</label><input class="form-input" value="s.reeves@vertex.io" readonly></div>
+    <div class="form-row"><label class="form-label">Subject</label><input class="form-input" id="email-sub" placeholder="Subject"></div>
+    <div class="form-row"><label class="form-label">Message</label><textarea class="form-input" id="email-body" rows="4" placeholder="Type your message..." style="resize:none"></textarea></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:4px">
+      <button class="btn btn-o" onclick="closeModal('modal-email')">Cancel</button>
+      <button class="btn btn-g" onclick="alert('Email sent!');closeModal('modal-email')"><i class="ti ti-send" style="font-size:13px"></i> Send</button>
+    </div>
+  </div>
+</div>
+
+<!-- Call modal -->
+<div class="modal-overlay" id="modal-call">
+  <div class="modal">
+    <p class="modal-title">Log a call</p>
+    <div class="form-row"><label class="form-label">Contact</label><input class="form-input" value="Simone Reeves · +44 20 7946 0823" readonly></div>
+    <div class="form-row"><label class="form-label">Duration (min)</label><input class="form-input" id="call-dur" type="number" placeholder="0"></div>
+    <div class="form-row"><label class="form-label">Notes</label><textarea class="form-input" id="call-notes" rows="3" placeholder="Call summary..." style="resize:none"></textarea></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:4px">
+      <button class="btn btn-o" onclick="closeModal('modal-call')">Cancel</button>
+      <button class="btn btn-g" onclick="alert('Call logged!');closeModal('modal-call')">Log call</button>
+    </div>
+  </div>
+</div>
+
+<!-- Deal modal -->
+<div class="modal-overlay" id="modal-deal">
+  <div class="modal">
+    <p class="modal-title">New deal</p>
+    <div class="form-row"><label class="form-label">Deal name</label><input class="form-input" id="d-name" placeholder="Deal name"></div>
+    <div class="form-row"><label class="form-label">Value (£)</label><input class="form-input" id="d-val" type="number" placeholder="0"></div>
+    <div class="form-row"><label class="form-label">Stage</label><select class="form-input" id="d-stage"><option>Lead</option><option>Discovery</option><option>Proposal</option><option>Closing</option><option>Won</option></select></div>
+    <div class="form-row"><label class="form-label">Close date</label><input class="form-input" id="d-close" type="date"></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:4px">
+      <button class="btn btn-o" onclick="closeModal('modal-deal')">Cancel</button>
+      <button class="btn btn-g" onclick="alert('Deal created!');closeModal('modal-deal')">Create</button>
+    </div>
+  </div>
+</div>
+
+<!-- Upload modal -->
+<div class="modal-overlay" id="modal-upload">
+  <div class="modal">
+    <p class="modal-title">Upload document</p>
+    <div class="form-row"><label class="form-label">File name</label><input class="form-input" id="up-name" placeholder="Document name"></div>
+    <div class="form-row"><label class="form-label">File</label><input class="form-input" type="file"></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:4px">
+      <button class="btn btn-o" onclick="closeModal('modal-upload')">Cancel</button>
+      <button class="btn btn-g" onclick="alert('Uploaded!');closeModal('modal-upload')"><i class="ti ti-upload" style="font-size:13px"></i> Upload</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════ NAVIGATION ══════════════
+const PAGES = ['contacts','calendar','tasks','dashboard','inbox','deals','properties','analytics','documents','settings'];
+const BC = {
+  contacts:['Contacts','Simone Reeves'], calendar:['Main','Calendar'], tasks:['Manage','Tasks'],
+  dashboard:['Main','Dashboard'], inbox:['Main','Inbox'], deals:['CRM','Deals'],
+  properties:['CRM','Properties'], analytics:['CRM','Analytics'],
+  documents:['Manage','Documents'], settings:['Manage','Settings']
+};
+let activeCharts = {};
+
+function goPage(id, el) {
+  PAGES.forEach(p => {
+    const pg = document.getElementById('page-' + p);
+    if (pg) pg.classList.remove('active');
+  });
+  const t = document.getElementById('page-' + id);
+  if (t) t.classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  if (el) el.classList.add('active');
+  const b = BC[id] || ['Main', id];
+  document.getElementById('bc2').textContent = b[0];
+  document.getElementById('bc3').textContent = b[1];
+  // init page-specific stuff
+  if (id === 'calendar') initCalendar();
+  if (id === 'tasks') renderFullTaskList();
+  if (id === 'dashboard') initDashChart();
+  if (id === 'analytics') initAnalyticsChart();
+}
+
+// ══════════════ CLOCK ══════════════
+const clockInTime = new Date();
+clockInTime.setHours(9, 2, 0, 0);
+let clockedOut = false;
+let onBreak = false;
+
+function updateClock() {
+  const now = new Date();
+  document.getElementById('live-clock').textContent =
+    String(now.getHours()).padStart(2,'0') + ':' +
+    String(now.getMinutes()).padStart(2,'0') + ':' +
+    String(now.getSeconds()).padStart(2,'0');
+  const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  document.getElementById('live-date').textContent =
+    days[now.getDay()] + ', ' + now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+  const diffMs = now - clockInTime;
+  const diffH = Math.floor(diffMs / 3600000);
+  const diffM = Math.floor((diffMs % 3600000) / 60000);
+  document.getElementById('duty-hours').textContent = diffH + 'h ' + String(diffM).padStart(2,'0') + 'm';
+  document.getElementById('worked-h').textContent = diffH + 'h';
+}
+updateClock();
+setInterval(updateClock, 1000);
+
+function doClockOut() {
+  const now = new Date();
+  const t = now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+  document.getElementById('clock-out-time').textContent = t;
+  document.getElementById('clock-out-time').style.color = '#111827';
+  document.getElementById('clock-out-status').textContent = 'Clocked out';
+  document.getElementById('clock-out-status').className = 'chip ce';
+  document.getElementById('clock-out-btn').innerHTML = '<i class="ti ti-check" style="font-size:14px"></i> Clocked out at ' + t;
+  document.getElementById('clock-out-btn').disabled = true;
+  document.getElementById('clock-out-btn').style.opacity = '.65';
+}
+
+function doBreak() {
+  const btn = document.getElementById('break-btn');
+  onBreak = !onBreak;
+  btn.innerHTML = onBreak
+    ? '<i class="ti ti-player-stop" style="font-size:14px"></i> End Break'
+    : '<i class="ti ti-coffee" style="font-size:14px"></i> Start Break';
+  btn.className = onBreak ? 'btn btn-r' : 'btn btn-o';
+}
+
+// ══════════════ TASKS ══════════════
+let tasks = [
+  {id:1, name:'Send revised pricing deck', due:'2026-05-25', assignee:'Rohan Mehta', priority:'High', done:false},
+  {id:2, name:'Renewal review call prep',  due:'2026-05-28', assignee:'Priya Nair',  priority:'Medium', done:false},
+  {id:3, name:'Submit legal review',       due:'2026-06-01', assignee:'Priya Nair',  priority:'Low', done:false},
+  {id:4, name:'Update CRM pipeline',       due:'2026-05-20', assignee:'Rohan Mehta', priority:'Low', done:true},
+  {id:5, name:'Send welcome gift',         due:'2026-05-15', assignee:'Davis Levin', priority:'Medium', done:true},
+];
+
+function renderTaskList() {
+  const el = document.getElementById('task-list');
+  if (!el) return;
+  const open = tasks.filter(t => !t.done);
+  el.innerHTML = '';
+  tasks.forEach(t => {
+    const row = document.createElement('div');
+    row.style.cssText = 'display:flex;align-items:flex-start;gap:8px;padding:9px 0;border-bottom:1px solid #F5F5F5';
+    row.innerHTML = `
+      <div class="task-cb ${t.done?'done':''}" onclick="toggleTask(${t.id})" style="margin-top:2px"></div>
+      <div style="flex:1">
+        <p style="font-size:12.5px;font-weight:500;color:${t.done?'#9CA3AF':'#111827'};text-decoration:${t.done?'line-through':'none'}">${t.name}</p>
+        <p style="font-size:11px;color:#9CA3AF;margin-top:2px">${t.due} · ${t.assignee}</p>
+      </div>
+      <span class="chip ${t.priority==='High'?'cr':t.priority==='Medium'?'ca':'cgr'}" style="font-size:10px">${t.priority}</span>`;
+    el.appendChild(row);
+  });
+  const openCount = tasks.filter(t=>!t.done).length;
+  const pct = Math.round((tasks.filter(t=>t.done).length / tasks.length)*100);
+  const badge = document.getElementById('tasks-open-badge');
+  if (badge) badge.textContent = openCount + ' open';
+  const pctEl = document.getElementById('task-pct');
+  if (pctEl) pctEl.textContent = pct + '%';
+  const bar = document.getElementById('task-bar-fill');
+  if (bar) bar.style.width = pct + '%';
+}
+
+function toggleTask(id) {
+  tasks = tasks.map(t => t.id===id ? {...t, done:!t.done} : t);
+  renderTaskList();
+  renderFullTaskList();
+}
+
+function saveTask() {
+  const name = document.getElementById('t-name').value.trim();
+  const due = document.getElementById('t-due').value;
+  const assignee = document.getElementById('t-assignee').value.trim() || 'Unassigned';
+  const priority = document.getElementById('t-priority').value;
+  if (!name) { alert('Enter a task name'); return; }
+  tasks.push({id: Date.now(), name, due: due||'No date', assignee, priority, done:false});
+  renderTaskList();
+  renderFullTaskList();
+  closeModal('modal-task');
+  document.getElementById('t-name').value = '';
+  document.getElementById('t-due').value = '';
+  document.getElementById('t-assignee').value = '';
+}
+
+function renderFullTaskList() {
+  const el = document.getElementById('full-task-list');
+  if (!el) return;
+  el.innerHTML = '';
+  tasks.forEach(t => {
+    const row = document.createElement('div');
+    row.className = 'att-row';
+    row.innerHTML = `
+      <span style="display:flex;align-items:center;gap:8px">
+        <div class="task-cb ${t.done?'done':''}" onclick="toggleTask(${t.id})"></div>
+        <span style="color:${t.done?'#9CA3AF':'#111827'};text-decoration:${t.done?'line-through':'none'}">${t.name}</span>
+      </span>
+      <span style="color:#6B7280">${t.assignee}</span>
+      <span style="color:#9CA3AF">${t.due}</span>
+      <span><span class="chip ${t.priority==='High'?'cr':t.priority==='Medium'?'ca':'cgr'}" style="font-size:10px">${t.priority}</span></span>
+      <span><span class="chip ${t.done?'ce':'cg'}" style="font-size:10px">${t.done?'Done':'Open'}</span></span>`;
+    el.appendChild(row);
+  });
+  const open = tasks.filter(t=>!t.done).length;
+  const done = tasks.filter(t=>t.done).length;
+  const oc = document.getElementById('tasks-open-count');
+  const dc = document.getElementById('tasks-done-count');
+  if (oc) oc.textContent = open;
+  if (dc) dc.textContent = done;
+  initTasksChart();
+}
+
+// ══════════════ ASSETS ══════════════
+const assetIcons = {Laptop:'ti-device-laptop',Phone:'ti-device-mobile',Headphones:'ti-headphones',Monitor:'ti-device-desktop',Other:'ti-package'};
+const assetColors = {Laptop:'var(--gl)',Phone:'#EEF2FF',Headphones:'#FEF3C7',Monitor:'#F0FDF4',Other:'#F3F4F6'};
+const assetIconColors = {Laptop:'var(--g)',Phone:'#4F46E5',Headphones:'#92400E',Monitor:'#065F46',Other:'#6B7280'};
+let assetCount = 3;
+
+function saveAsset() {
+  const name = document.getElementById('a-name').value.trim();
+  const aid = document.getElementById('a-id').value.trim();
+  const cat = document.getElementById('a-cat').value;
+  if (!name) { alert('Enter asset name'); return; }
+  assetCount++;
+  const list = document.getElementById('asset-list');
+  const summary = list.querySelector('[data-summary]');
+  const div = document.createElement('div');
+  div.style.cssText = 'display:flex;align-items:center;gap:10px;padding:9px 10px;background:#F9FAFB;border-radius:8px;border:1px solid #F0F2F0';
+  div.innerHTML = `
+    <div style="width:32px;height:32px;border-radius:8px;background:${assetColors[cat]||'#F3F4F6'};display:flex;align-items:center;justify-content:center;flex-shrink:0">
+      <i class="ti ${assetIcons[cat]||'ti-package'}" style="font-size:16px;color:${assetIconColors[cat]||'#6B7280'}"></i>
+    </div>
+    <div style="flex:1"><p style="font-size:12.5px;font-weight:500;color:#111827">${name}</p><p style="font-size:10.5px;color:#9CA3AF">${aid||'No ID'} · Today</p></div>
+    <span class="chip ce" style="font-size:10px">Active</span>`;
+  list.insertBefore(div, list.lastElementChild);
+  document.getElementById('asset-count').textContent = assetCount + ' assets';
+  closeModal('modal-asset');
+  document.getElementById('a-name').value = '';
+  document.getElementById('a-id').value = '';
+}
+
+// ══════════════ CALENDAR ══════════════
+let calYear = 2026, calMonth = 4; // 0-indexed, 4=May
+let selectedDay = 25;
+const calEvents = [
+  {date:'2026-05-25', title:'Renewal review call', time:'10:00 AM', type:'meeting', color:'var(--g)'},
+  {date:'2026-05-25', title:'Send pricing deck',   time:'14:00 PM', type:'task',    color:'#F59E0B'},
+  {date:'2026-05-26', title:'Team standup',         time:'9:00 AM',  type:'meeting', color:'var(--g)'},
+  {date:'2026-05-28', title:'Q3 Strategy sync',     time:'2:00 PM',  type:'meeting', color:'var(--g)'},
+  {date:'2026-06-01', title:'Contract sign-off',    time:'11:00 AM', type:'meeting', color:'var(--g)'},
+];
+
+function initCalendar() {
+  renderCalGrid();
+  renderCalSidebar();
+}
+
+function calNav(dir) {
+  calMonth += dir;
+  if (calMonth > 11) { calMonth = 0; calYear++; }
+  if (calMonth < 0)  { calMonth = 11; calYear--; }
+  renderCalGrid();
+  renderCalSidebar();
+}
+
+function calGoToday() {
+  const now = new Date();
+  calYear = now.getFullYear();
+  calMonth = now.getMonth();
+  selectedDay = now.getDate();
+  renderCalGrid();
+  renderCalSidebar();
+}
+
+function renderCalGrid() {
+  const title = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  document.getElementById('cal-month-title').textContent = title[calMonth] + ' ' + calYear;
+  const grid = document.getElementById('cal-grid');
+  grid.innerHTML = '';
+  const now = new Date();
+  const firstDay = new Date(calYear, calMonth, 1).getDay();
+  const daysInMonth = new Date(calYear, calMonth+1, 0).getDate();
+  const daysInPrev = new Date(calYear, calMonth, 0).getDate();
+
+  // prev month trailing days
+  for (let i = firstDay - 1; i >= 0; i--) {
+    const d = document.createElement('div');
+    d.className = 'cal-cell other-month';
+    d.textContent = daysInPrev - i;
+    grid.appendChild(d);
+  }
+  // current month
+  for (let day = 1; day <= daysInMonth; day++) {
+    const d = document.createElement('div');
+    const dateStr = calYear + '-' + String(calMonth+1).padStart(2,'0') + '-' + String(day).padStart(2,'0');
+    const isToday = calYear===now.getFullYear() && calMonth===now.getMonth() && day===now.getDate();
+    const isSelected = day === selectedDay;
+    const hasEvt = calEvents.some(e => e.date === dateStr);
+    d.className = 'cal-cell' + (isToday?' today-cell':'') + (hasEvt?' has-event':'') + (!isToday && isSelected?' selected':'');
+    d.textContent = day;
+    d.onclick = () => { selectedDay = day; renderCalGrid(); renderCalSidebar(); };
+    grid.appendChild(d);
+  }
+  // next month leading days
+  const totalCells = firstDay + daysInMonth;
+  const remaining = totalCells % 7 === 0 ? 0 : 7 - (totalCells % 7);
+  for (let i = 1; i <= remaining; i++) {
+    const d = document.createElement('div');
+    d.className = 'cal-cell other-month';
+    d.textContent = i;
+    grid.appendChild(d);
+  }
+}
+
+function renderCalSidebar() {
+  const dateStr = calYear + '-' + String(calMonth+1).padStart(2,'0') + '-' + String(selectedDay).padStart(2,'0');
+  const dayEvts = calEvents.filter(e => e.date === dateStr);
+  const label = document.getElementById('cal-selected-label');
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  label.textContent = months[calMonth] + ' ' + selectedDay + ', ' + calYear;
+
+  const dayEl = document.getElementById('cal-day-events');
+  dayEl.innerHTML = '';
+  if (dayEvts.length === 0) {
+    dayEl.innerHTML = '<p style="font-size:12px;color:#9CA3AF;text-align:center;padding:16px 0">No events</p>';
+  } else {
+    dayEvts.forEach(e => {
+      const row = document.createElement('div');
+      row.className = 'evt-pill';
+      row.innerHTML = `
+        <div style="width:4px;height:36px;border-radius:4px;background:${e.color};flex-shrink:0"></div>
+        <div style="flex:1">
+          <p style="font-size:12.5px;font-weight:500;color:#111827">${e.title}</p>
+          <p style="font-size:11px;color:#9CA3AF;margin-top:1px">${e.time} · ${e.type}</p>
+        </div>
+        ${e.type==='meeting'?'<button class="btn btn-g btn-sm" onclick="alert(\'Joining...\')">Join</button>':''}`;
+      dayEl.appendChild(row);
+    });
+  }
+
+  // upcoming (next 5 events after today)
+  const upcoming = document.getElementById('cal-upcoming');
+  upcoming.innerHTML = '';
+  const todayStr = new Date().toISOString().split('T')[0];
+  const future = calEvents.filter(e => e.date >= todayStr).sort((a,b)=>a.date.localeCompare(b.date)).slice(0,5);
+  future.forEach(e => {
+    const row = document.createElement('div');
+    row.className = 'evt-pill';
+    row.innerHTML = `
+      <div style="width:4px;height:32px;border-radius:4px;background:${e.color};flex-shrink:0"></div>
+      <div style="flex:1">
+        <p style="font-size:12px;font-weight:500;color:#111827">${e.title}</p>
+        <p style="font-size:11px;color:#9CA3AF;margin-top:1px">${e.date} · ${e.time}</p>
+      </div>`;
+    upcoming.appendChild(row);
+  });
+}
+
+function saveMeeting() {
+  const title = document.getElementById('m-title').value.trim();
+  const date = document.getElementById('m-date').value;
+  const time = document.getElementById('m-time').value;
+  if (!title || !date) { alert('Please fill in title and date'); return; }
+  calEvents.push({date, title, time: time||'TBD', type:'meeting', color:'var(--g)'});
+  calEvents.sort((a,b)=>a.date.localeCompare(b.date));
+  renderCalGrid();
+  renderCalSidebar();
+  closeModal('modal-meeting');
+  document.getElementById('m-title').value='';
+  document.getElementById('m-date').value='';
+  document.getElementById('m-time').value='';
+}
+
+// ══════════════ CHARTS ══════════════
+function initChart(id, config) {
+  if (activeCharts[id]) { activeCharts[id].destroy(); delete activeCharts[id]; }
+  const c = document.getElementById(id);
+  if (!c) return;
+  activeCharts[id] = new Chart(c, config);
+}
+
+function initExpChart() {
+  initChart('exp-chart', {
+    type:'doughnut',
+    data:{labels:['Travel','Entertainment','Supplies','Software','Other'],
+          datasets:[{data:[580,420,210,380,250],backgroundColor:['#1A6B5A','#10B981','#F59E0B','#4F46E5','#9CA3AF'],borderWidth:0}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}}}
+  });
+}
+
+function initDashChart() {
+  initChart('dash-chart', {
+    type:'bar',
+    data:{labels:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+          datasets:[{label:'Revenue',data:[28,35,30,45,38,52,48,60,55,68,72,78],backgroundColor:'rgba(26,107,90,.7)',borderRadius:6}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false}},y:{grid:{color:'#F3F4F6'}}}}
+  });
+}
+
+function initAnalyticsChart() {
+  initChart('analytics-chart', {
+    type:'line',
+    data:{labels:['Jan','Feb','Mar','Apr','May','Jun'],
+          datasets:[
+            {label:'Earnings',data:[4200,4350,4200,5100,5325,5100],borderColor:'#1A6B5A',tension:.4,fill:false,pointRadius:3},
+            {label:'Expenditure',data:[1200,1680,1400,1900,1840,1600],borderColor:'#EF4444',tension:.4,fill:false,pointRadius:3}
+          ]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'top'}},scales:{x:{grid:{display:false}},y:{grid:{color:'#F3F4F6'}}}}
+  });
+}
+
+function initTasksChart() {
+  const open = tasks.filter(t=>!t.done).length;
+  const done = tasks.filter(t=>t.done).length;
+  initChart('tasks-chart', {
+    type:'doughnut',
+    data:{labels:['Open','Done'],datasets:[{data:[open,done],backgroundColor:['#F59E0B','#1A6B5A'],borderWidth:0}]},
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font:{size:11}}}}}
+  });
+}
+
+// ══════════════ MODALS ══════════════
+function openModal(id) {
+  document.getElementById(id).classList.add('open');
+}
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+// close on overlay click
+document.querySelectorAll('.modal-overlay').forEach(o => {
+  o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); });
+});
+
+// ══════════════ INIT ══════════════
+renderTaskList();
+initExpChart();
+</script>
+</body>
+</html>
